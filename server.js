@@ -42,7 +42,7 @@ app.get('/books', async (req, res) => {
    let dbResponse =  await  Book.find();
     res.send(dbResponse);
 })
-app.get('/books/:title', async (req, res) => {
+app.get('/books/title/:title', async (req, res) => {
     // .findOne()
    let dbResponse =  await  Book.findOne({title:req.params.title});
     res.send(dbResponse);
