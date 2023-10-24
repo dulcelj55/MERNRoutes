@@ -43,20 +43,32 @@ app.get('/books', async (req, res) => {
     res.send(dbResponse);
 })
 app.get('/books/:title', async (req, res) => {
-    // in the request there should be an array of books objects.
+    // .findOne()
    let dbResponse =  await  Book.findOne({title:req.params.title});
+    res.send(dbResponse);
+})
+app.get('/books/:ObjectId', async (req, res) => {
+    // .findById()
+   let dbResponse =  await  Book.findById({ObjectId:req.params.ObjectId});
     res.send(dbResponse);
 })
 
 
-app.delete('/books/:title', async (req, res)=>{
-   
-        // .findByIdAndDelete()
-        let title = req.params.title;
-        let response = await Book.findByTitleAndDelete(title);
-        console.log(response);
-        res.send('deleted book')
-    });
+app.delete("/books/:idOfBook", async (req, res) => {
+    // .findByIdAndDelete()
+    let id = req.params.idOfBook;
+    let response = await Book.findByIdAndDelete(id);
+    console.log(response);
+    res.send('deleted book')
+});
+app.delete("/books/pages/:numOfPages", async (req, res) => {
+    // .findOneAndDelete()
+    let pages = req.params.numOfPages;
+    let response = await Book.findOneAndDelete({pages:+pages});
+    console.log(response);
+    res.send('deleted book with {pages}')
+});
+
 
 
 // END ROUTES //
