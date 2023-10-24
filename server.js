@@ -37,7 +37,27 @@ app.post('/books', async (req, res) => {
     res.send(dbResponse);
 })
 
-// findOne
+app.get('/books', async (req, res) => {
+    // in the request there should be an array of books objects.
+   let dbResponse =  await  Book.find();
+    res.send(dbResponse);
+})
+app.get('/books/:title', async (req, res) => {
+    // in the request there should be an array of books objects.
+   let dbResponse =  await  Book.findOne({title:req.params.title});
+    res.send(dbResponse);
+})
+
+
+app.delete('/books/:title', async (req, res)=>{
+   
+        // .findByIdAndDelete()
+        let title = req.params.title;
+        let response = await Book.findByTitleAndDelete(title);
+        console.log(response);
+        res.send('deleted book')
+    });
+
 
 // END ROUTES //
 
